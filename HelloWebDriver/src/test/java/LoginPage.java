@@ -12,12 +12,12 @@ public class LoginPage {
 
     }
 
-
     @FindBy(xpath = "/html/body/div[1]/div/div[2]/div/div[2]/button")
     private WebElement closeAnnoyingAdButton;
 
     @FindBy(xpath = "//*[@id=\"login\"]")
     private WebElement usernameField;
+
 
     @FindBy(xpath = "//*[@id=\"input_7\"]")
     private WebElement passwordField;
