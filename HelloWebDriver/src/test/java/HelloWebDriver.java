@@ -12,12 +12,10 @@ public class HelloWebDriver {
 
         System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 
-        ChromeOptions options = new ChromeOptions();
-        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = new ChromeDriver();
         LoginPage loginPage = new LoginPage(driver);
-        driver.manage().window().maximize();
 
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         driver.get("https://i-store.by/");
