@@ -36,15 +36,17 @@ public class IStoreTests {
     public void loginPositiveTest(){
         driver.get("https://i-store.by/");
 
+        String[][] data = CsvReader.getLoginData();
+
         loginPage.clickCloseAnnoyingAdButton();
 
         loginPage.clickToLoginButton();
 
-        loginPage.enterUsername("+375292670264");
+        loginPage.enterUsername(data[0][0]);
 
         loginPage.clickConfirmUsernameButton();
 
-        loginPage.enterPassword("1TROLLFACE1_v");
+        loginPage.enterPassword(data[0][1]);
 
         loginPage.clickConfirmPasswordButton();
 
