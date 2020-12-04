@@ -11,7 +11,7 @@ import page.LoginPage;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-public class LoginTest {
+public class IStoreTests {
 
     WebDriver driver;
     LoginPage loginPage;
@@ -59,25 +59,22 @@ public class LoginTest {
     }
 
     @Test
-    public void addToCartTest() throws InterruptedException {
+    public void addToCartTest() {
         driver.get("https://i-store.by/ipad/ipad-air-109/ipad-air-4-64-gb-wi-fi-seryy-kosmos-myfm2rka");
 
-        loginPage.clickCloseAnnoyingAdButton();
+        new WebDriverWait(driver, Duration.ofSeconds(10).toSeconds())
+                .until(driver -> !itemPage.getVendorCode().isEmpty());
 
         String vendorCodeExpected = itemPage.getVendorCode();
 
         System.out.println(vendorCodeExpected);
 
         itemPage.addToCart();
-        Thread.sleep(1000);
 
         itemPage.goToMyCart();
-        Thread.sleep(2000);
 
-//        new WebDriverWait(driver, Duration.ofSeconds(10).toSeconds())
-//                .until(d -> d.findElement(By.xpath("//*[@id=\"tab-content-30\"]/div/div/div[2]/div[2]/div[1]/div/div[2]/span")) != null);
-
-
+        new WebDriverWait(driver, Duration.ofSeconds(10).toSeconds())
+                .until(driver -> cartPage.getVendorCodeOfItem().split(" ").length == 2);
 
         String vendorCodeActual = cartPage.getVendorCodeOfItem().split(" ")[1];
 
