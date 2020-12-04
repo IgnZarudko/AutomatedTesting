@@ -32,13 +32,11 @@ public class IStoreTests {
         itemPage = new ItemPage(driver);
         cartPage = new CartPage(driver);
 
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-
     }
 
     @Test
-    public void loginPositiveTest() throws InterruptedException {
+    public void loginPositiveTest() {
         driver.get("https://i-store.by/");
 
         String[][] data = CsvReader.getLoginData();
@@ -60,7 +58,6 @@ public class IStoreTests {
                         .getText().equals("Привет!"));
 
 
-        Thread.sleep(2000);
         String usernameActual = driver.findElement(By.xpath("//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]")).getText();
 
         Assert.assertEquals(usernameActual, "Ignot");
