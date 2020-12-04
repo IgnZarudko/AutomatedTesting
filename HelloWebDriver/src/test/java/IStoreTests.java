@@ -1,9 +1,12 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
 import page.CartPage;
 import page.ItemPage;
 import page.LoginPage;
@@ -19,10 +22,12 @@ public class IStoreTests {
     CartPage cartPage;
 
     @BeforeClass
-    public void prepareAll(){
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+    public void setUpEnvironment(){
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("disable-gpu");
 
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(chromeOptions);
         loginPage = new LoginPage(driver);
         itemPage = new ItemPage(driver);
         cartPage = new CartPage(driver);
@@ -33,7 +38,7 @@ public class IStoreTests {
     }
 
     @Test
-    public void loginPositiveTest(){
+    public void loginPositiveTest() throws InterruptedException {
         driver.get("https://i-store.by/");
 
         String[][] data = CsvReader.getLoginData();
@@ -51,10 +56,12 @@ public class IStoreTests {
         loginPage.clickConfirmPasswordButton();
 
         new WebDriverWait(driver, Duration.ofSeconds(10).toSeconds())
-                .until(d -> !d.findElement(By.xpath("/html/body/div[1]/div[1]/header/div/div/div/div/div/div[3]/div/button/span[1]")).getText().equals("Привет!"));
+                .until(d -> !d.findElement(By.xpath("//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]"))
+                        .getText().equals("Привет!"));
 
 
-        String usernameActual = driver.findElement(By.xpath("/html/body/div[1]/div[1]/header/div/div/div/div/div/div[3]/div/button/span[1]")).getText();
+        Thread.sleep(2000);
+        String usernameActual = driver.findElement(By.xpath("//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]")).getText();
 
         Assert.assertEquals(usernameActual, "Ignot");
 
