@@ -26,12 +26,14 @@ public class IStoreTests {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("disable-gpu");
+        chromeOptions.addArguments("window-size=1920,1080");
 
         driver = new ChromeDriver(chromeOptions);
         loginPage = new LoginPage(driver);
         itemPage = new ItemPage(driver);
         cartPage = new CartPage(driver);
 
+        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
@@ -73,8 +75,6 @@ public class IStoreTests {
 
         String vendorCodeExpected = itemPage.getVendorCode();
 
-        System.out.println(vendorCodeExpected);
-
         itemPage.addToCart();
 
         itemPage.goToMyCart();
@@ -83,8 +83,6 @@ public class IStoreTests {
                 .until(driver -> cartPage.getVendorCodeOfItem().split(" ").length == 2);
 
         String vendorCodeActual = cartPage.getVendorCodeOfItem().split(" ")[1];
-
-        System.out.println(vendorCodeActual);
 
         Assert.assertEquals(vendorCodeActual, vendorCodeExpected);
     }
