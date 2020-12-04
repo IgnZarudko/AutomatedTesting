@@ -55,7 +55,7 @@ public class IStoreTests {
 
         loginPage.clickConfirmPasswordButton();
 
-        new WebDriverWait(driver, Duration.ofSeconds(10).toSeconds())
+        new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds())
                 .until(d -> !d.findElement(By.xpath("//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]"))
                         .getText().equals("Привет!"));
 
@@ -70,7 +70,7 @@ public class IStoreTests {
     public void addToCartTest() {
         driver.get("https://i-store.by/ipad/ipad-air-109/ipad-air-4-64-gb-wi-fi-seryy-kosmos-myfm2rka");
 
-        new WebDriverWait(driver, Duration.ofSeconds(10).toSeconds())
+        new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds())
                 .until(driver -> !itemPage.getVendorCode().isEmpty());
 
         String vendorCodeExpected = itemPage.getVendorCode();
@@ -79,7 +79,7 @@ public class IStoreTests {
 
         itemPage.goToMyCart();
 
-        new WebDriverWait(driver, Duration.ofSeconds(10).toSeconds())
+        new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds())
                 .until(driver -> cartPage.getVendorCodeOfItem().split(" ").length == 2);
 
         String vendorCodeActual = cartPage.getVendorCodeOfItem().split(" ")[1];
