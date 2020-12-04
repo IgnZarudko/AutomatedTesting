@@ -1,3 +1,5 @@
+package page;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +11,6 @@ public class LoginPage {
     public LoginPage(WebDriver driver){
         PageFactory.initElements(driver, this);
         this.driver = driver;
-
     }
 
     @FindBy(xpath = "/html/body/div[1]/div/div[2]/div/div[2]/button")
@@ -18,17 +19,16 @@ public class LoginPage {
     @FindBy(xpath = "//*[@id=\"login\"]")
     private WebElement usernameField;
 
-
-    @FindBy(xpath = "//*[@id=\"input_7\"]")
+    @FindBy(xpath = "//*[@name=\"password\"]")
     private WebElement passwordField;
 
-    @FindBy(xpath = "/html/body/div[1]/div[1]/header/div/div/div/div/div/div[3]/button")
+    @FindBy(xpath = "//div[@class=\"block-item\"]/button[@ng-if=\"!isLoggedIn\"]")
     private WebElement toLoginButton;
 
-    @FindBy(xpath = "/html/body/div[1]/div/div/div[2]/div/form/button")
+    @FindBy(xpath = "//button[@ng-click=\"account.onSetModalIndex(1, signInForm)\"]")
     private WebElement confirmUsernameButton;
 
-    @FindBy(xpath = "/html/body/div[1]/div/div/div[2]/div/form/button")
+    @FindBy(xpath = "//button[@ng-bind=\"translations.accountLoginBtnText\"]")
     private WebElement confirmPasswordButton;
 
     public void clickCloseAnnoyingAdButton(){
