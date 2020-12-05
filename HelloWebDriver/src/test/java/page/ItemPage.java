@@ -1,14 +1,16 @@
 package page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ItemPage {
-    private WebDriver driver;
-    private String pageURL;
+import java.time.Duration;
+import java.util.regex.Pattern;
 
+public class ItemPage extends Page{
     @FindBy(xpath = "//button[@ng-if=\"!linkOrButton(page.product.id) && page.product.prices.status == 0\"]")
     private WebElement addToCartButton;
 
@@ -19,13 +21,7 @@ public class ItemPage {
     private WebElement itemVendorCode;
 
     public ItemPage(WebDriver driver, String pageURL){
-        PageFactory.initElements(driver, this);
-        this.pageURL = pageURL;
-        this.driver = driver;
-    }
-
-    public void openPage(){
-        driver.get(pageURL);
+        super(driver, pageURL);
     }
 
     public void addToCart(){

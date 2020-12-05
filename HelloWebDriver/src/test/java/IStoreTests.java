@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -80,12 +81,7 @@ public class IStoreTests {
 
         landingPage.confirmPassword();
 
-        new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds())
-                .until(d -> !d.findElement(By.xpath("//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]"))
-                        .getText().equals("Привет!"));
-
-
-        String usernameActual = driver.findElement(By.xpath("//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]")).getText();
+        String usernameActual = landingPage.getProfileButtonName();
 
         Assert.assertEquals(usernameActual, "Ignot");
 
@@ -94,7 +90,7 @@ public class IStoreTests {
     @Test
     public void addToCartTest() {
         ItemPage itemPage = new ItemPage(driver, "https://i-store.by/ipad/ipad-air-109/ipad-air-4-64-gb-wi-fi-seryy-kosmos-myfm2rka");
-        CartPage cartPage = new CartPage(driver);
+        CartPage cartPage = new CartPage(driver, "https://i-store.by/cart");
 
         itemPage.openPage();
 
@@ -106,6 +102,7 @@ public class IStoreTests {
         itemPage.addToCart();
 
         itemPage.goToCart();
+
 
         new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds())
                 .until(driver -> cartPage.getItemVendorCode().split(" ").length == 2);

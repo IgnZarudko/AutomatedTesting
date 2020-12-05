@@ -1,14 +1,13 @@
 package page;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LandingPage {
-    private WebDriver driver;
-
-    private String pageURL;
+public class LandingPage extends Page{
 
     @FindBy(xpath = "//button[@class=\"sp-prompt-btn sp-accept-btn sp_notify_prompt\"]")
     private WebElement closeAnnoyingAdButton;
@@ -28,14 +27,13 @@ public class LandingPage {
     @FindBy(xpath = "//button[@ng-bind=\"translations.accountLoginBtnText\"]")
     private WebElement confirmPasswordButton;
 
-    public LandingPage(WebDriver driver, String pageURL){
-        PageFactory.initElements(driver, this);
-        this.pageURL = pageURL;
-        this.driver = driver;
-    }
+    private final String profileButtonXpath = "//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]";
 
-    public void openPage(){
-        driver.get(pageURL);
+    @FindBy(xpath = profileButtonXpath)
+    private WebElement profileButton;
+
+    public LandingPage(WebDriver driver, String pageURL){
+        super(driver, pageURL);
     }
 
     public void closeAnnoyingAd(){
@@ -54,11 +52,24 @@ public class LandingPage {
         passwordField.sendKeys(password);
     }
 
-    public void confirmUsername(){
+    public void confirmUsername() {
         confirmUsernameButton.click();
     }
 
     public void confirmPassword(){
         confirmPasswordButton.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+
+        wait.until(
+                    ExpectedConditions.not(
+                            ExpectedConditions.textToBe(By.xpath(profileButtonXpath), "Привет!")
+                    )
+        );
+    }
+
+
+    public String getProfileButtonName(){
+        return profileButton.getText();
     }
 }
