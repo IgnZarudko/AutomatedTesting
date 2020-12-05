@@ -4,9 +4,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.AfterClass;
 import page.CartPage;
 import page.ItemPage;
 import page.LandingPage;
@@ -19,8 +19,8 @@ public class IStoreTests {
 
     WebDriver driver;
 
-    @BeforeClass
-    public void setUpEnvironment(){
+    @BeforeMethod
+    public void setUpEnvironment() {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
         chromeOptions.addArguments("disable-gpu");
@@ -30,6 +30,34 @@ public class IStoreTests {
 
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+
+    @Test
+    public void loginPositiveTestNoPageObject() {
+        driver.get("https://i-store.by/");
+
+        String[][] data = CsvReader.getLoginData();
+
+        driver.findElement(By.xpath("//button[@class=\"sp-prompt-btn sp-accept-btn sp_notify_prompt\"]")).click();
+
+        driver.findElement(By.xpath("//div[@class=\"block-item\"]/button[@ng-if=\"!isLoggedIn\"]")).click();
+
+        driver.findElement(By.xpath("//*[@id=\"login\"]")).sendKeys(data[0][0]);
+
+        driver.findElement(By.xpath("//button[@ng-click=\"account.onSetModalIndex(1, signInForm)\"]")).click();
+
+        driver.findElement(By.xpath("//*[@name=\"password\"]")).sendKeys(data[0][1]);
+
+        driver.findElement(By.xpath("//button[@ng-bind=\"translations.accountLoginBtnText\"]")).click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds())
+                .until(d -> !d.findElement(By.xpath("//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]"))
+                        .getText().equals("Привет!"));
+
+
+        String usernameActual = driver.findElement(By.xpath("//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]")).getText();
+
+        Assert.assertEquals(usernameActual, "Ignot");
     }
 
     @Test
@@ -88,7 +116,7 @@ public class IStoreTests {
     }
 
 
-    @AfterClass
+    @AfterMethod
     public void quitWebDriver(){
         driver.quit();
     }
