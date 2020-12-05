@@ -6,9 +6,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class ItemPage {
-    public WebDriver driver;
-    public ItemPage(WebDriver driver){
+    private WebDriver driver;
+    private String pageURL;
+
+    public ItemPage(WebDriver driver, String pageURL){
         PageFactory.initElements(driver, this);
+        this.pageURL = pageURL;
         this.driver = driver;
     }
 
@@ -20,6 +23,10 @@ public class ItemPage {
 
     @FindBy(xpath = "//span[@itemprop=\"sku\"]")
     private WebElement vendorCodeOfItem;
+
+    public void openPage(){
+        driver.get(pageURL);
+    }
 
     public void addToCart(){
         addToCartButton.click();

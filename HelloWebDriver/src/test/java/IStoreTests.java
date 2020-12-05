@@ -9,7 +9,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
 import page.CartPage;
 import page.ItemPage;
-import page.LoginPage;
+import page.LandingPage;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class IStoreTests {
 
     WebDriver driver;
-    LoginPage loginPage;
+    LandingPage landingPage;
     ItemPage itemPage;
     CartPage cartPage;
 
@@ -29,8 +29,8 @@ public class IStoreTests {
         chromeOptions.addArguments("window-size=1920,1080");
 
         driver = new ChromeDriver(chromeOptions);
-        loginPage = new LoginPage(driver);
-        itemPage = new ItemPage(driver);
+        landingPage = new LandingPage(driver, "https://i-store.by/");
+        itemPage = new ItemPage(driver, "https://i-store.by/ipad/ipad-air-109/ipad-air-4-64-gb-wi-fi-seryy-kosmos-myfm2rka");
         cartPage = new CartPage(driver);
 
         driver.manage().window().maximize();
@@ -39,21 +39,21 @@ public class IStoreTests {
 
     @Test
     public void loginPositiveTest() {
-        driver.get("https://i-store.by/");
+        landingPage.openPage();
 
         String[][] data = CsvReader.getLoginData();
 
-        loginPage.clickCloseAnnoyingAdButton();
+        landingPage.clickCloseAnnoyingAdButton();
 
-        loginPage.clickToLoginButton();
+        landingPage.clickToLoginButton();
 
-        loginPage.enterUsername(data[0][0]);
+        landingPage.enterUsername(data[0][0]);
 
-        loginPage.clickConfirmUsernameButton();
+        landingPage.clickConfirmUsernameButton();
 
-        loginPage.enterPassword(data[0][1]);
+        landingPage.enterPassword(data[0][1]);
 
-        loginPage.clickConfirmPasswordButton();
+        landingPage.clickConfirmPasswordButton();
 
         new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds())
                 .until(d -> !d.findElement(By.xpath("//span[@ng-bind=\"user.info.first_name || user.email || translations.accountHeaderNoNamePhrase\"]"))
@@ -68,7 +68,7 @@ public class IStoreTests {
 
     @Test
     public void addToCartTest() {
-        driver.get("https://i-store.by/ipad/ipad-air-109/ipad-air-4-64-gb-wi-fi-seryy-kosmos-myfm2rka");
+        itemPage.openPage();
 
         new WebDriverWait(driver, Duration.ofSeconds(10).getSeconds())
                 .until(driver -> !itemPage.getVendorCode().isEmpty());

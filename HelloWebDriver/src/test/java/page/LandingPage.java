@@ -5,11 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage {
+public class LandingPage {
+    private WebDriver driver;
+    private String pageURL;
 
-    public WebDriver driver;
-    public LoginPage(WebDriver driver){
+    public LandingPage(WebDriver driver, String pageURL){
         PageFactory.initElements(driver, this);
+        this.pageURL = pageURL;
         this.driver = driver;
     }
 
@@ -30,6 +32,10 @@ public class LoginPage {
 
     @FindBy(xpath = "//button[@ng-bind=\"translations.accountLoginBtnText\"]")
     private WebElement confirmPasswordButton;
+
+    public void openPage(){
+        driver.get(pageURL);
+    }
 
     public void clickCloseAnnoyingAdButton(){
         closeAnnoyingAdButton.click();
