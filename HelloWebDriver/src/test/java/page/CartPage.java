@@ -13,9 +13,9 @@ public class CartPage {
     }
 
     @FindBy(xpath = "//span[starts-with(text(),'Артикул')]")
-    private WebElement vendorCodeOfItem;
+    private WebElement itemVendorCode;
 
-    public String getVendorCodeOfItem(){
-        return vendorCodeOfItem.getText();
+    public String getItemVendorCode(){
+        return itemVendorCode.getText();
     }
 }

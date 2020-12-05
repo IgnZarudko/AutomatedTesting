@@ -9,20 +9,20 @@ public class ItemPage {
     private WebDriver driver;
     private String pageURL;
 
+    @FindBy(xpath = "//button[@ng-if=\"!linkOrButton(page.product.id) && page.product.prices.status == 0\"]")
+    private WebElement addToCartButton;
+
+    @FindBy(xpath = "//a[@ng-if=\"linkOrButton(page.product.id)\"][@class=\"button ng-scope\"]")
+    private WebElement goToCartButton;
+
+    @FindBy(xpath = "//span[@itemprop=\"sku\"]")
+    private WebElement itemVendorCode;
+
     public ItemPage(WebDriver driver, String pageURL){
         PageFactory.initElements(driver, this);
         this.pageURL = pageURL;
         this.driver = driver;
     }
-
-    @FindBy(xpath = "//button[@ng-if=\"!linkOrButton(page.product.id) && page.product.prices.status == 0\"]")
-    private WebElement addToCartButton;
-
-    @FindBy(xpath = "//a[@ng-if=\"linkOrButton(page.product.id)\"][@class=\"button ng-scope\"]")
-    private WebElement goToMyCartButton;
-
-    @FindBy(xpath = "//span[@itemprop=\"sku\"]")
-    private WebElement vendorCodeOfItem;
 
     public void openPage(){
         driver.get(pageURL);
@@ -32,11 +32,11 @@ public class ItemPage {
         addToCartButton.click();
     }
 
-    public void goToMyCart(){
-        goToMyCartButton.click();
+    public void goToCart(){
+        goToCartButton.click();
     }
 
     public String getVendorCode(){
-        return vendorCodeOfItem.getText();
+        return itemVendorCode.getText();
     }
 }
