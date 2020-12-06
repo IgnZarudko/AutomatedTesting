@@ -20,21 +20,20 @@ public class ItemPage extends Page{
         super(driver, pageURL);
     }
 
-    public void addToCart(){
-        addToCartButton.click();
-    }
-
-    public void goToCart(){
-        goToCartButton.click();
-    }
-
-    public void waitUntilVendorCodeIsAvailable(){
-        new WebDriverWait(driver, 10)
-                .until(_driver -> !this.getVendorCode().isEmpty());
-    }
-
-
     public String getVendorCode(){
+        new WebDriverWait(driver, 10)
+                .until(_driver -> !this.itemVendorCode.getText().isEmpty());
+
         return itemVendorCode.getText();
+    }
+
+    public ItemPage addToCart(){
+        addToCartButton.click();
+        return this;
+    }
+
+    public ItemPage goToCart(){
+        goToCartButton.click();
+        return this;
     }
 }

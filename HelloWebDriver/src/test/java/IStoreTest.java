@@ -62,28 +62,20 @@ public class IStoreTest {
 
     @Test
     public void loginPositiveTest() {
+        String[][] data = CsvReader.getLoginData();
+
         LandingPage landingPage = new LandingPage(driver, "https://i-store.by/");
 
         landingPage.openPage();
 
-        String[][] data = CsvReader.getLoginData();
-
-        landingPage.closeAnnoyingAd();
-
-        landingPage.goToLogin();
-
-        landingPage.enterUsername(data[0][0]);
-
-        landingPage.confirmUsername();
-
-        landingPage.enterPassword(data[0][1]);
-
-        landingPage.confirmPassword();
-
-        String usernameActual = landingPage.getProfileButtonName();
+        String usernameActual = landingPage.closeAnnoyingAd()
+        .goToLogin()
+        .enterUsername(data[0][0])
+        .confirmUsername()
+        .enterPassword(data[0][1])
+        .confirmPassword().getProfileButtonName();
 
         Assert.assertEquals(usernameActual, "Ignot");
-
     }
 
     @Test
@@ -93,15 +85,10 @@ public class IStoreTest {
 
         itemPage.openPage();
 
-        itemPage.waitUntilVendorCodeIsAvailable();
-
         String vendorCodeExpected = itemPage.getVendorCode();
 
-        itemPage.addToCart();
-
-        itemPage.goToCart();
-
-        cartPage.waitUntilVendorCodeIsAvailable();
+        itemPage.addToCart()
+                .goToCart();
 
         String vendorCodeActual = cartPage.getItemVendorCode();
 

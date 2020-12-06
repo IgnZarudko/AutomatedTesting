@@ -36,27 +36,32 @@ public class LandingPage extends Page{
         super(driver, pageURL);
     }
 
-    public void closeAnnoyingAd(){
+    public LandingPage closeAnnoyingAd(){
         closeAnnoyingAdButton.click();
+        return this;
     }
 
-    public void goToLogin(){
+    public LandingPage goToLogin(){
         goToLoginButton.click();
+        return this;
     }
 
-    public void enterUsername(String username){
+    public LandingPage enterUsername(String username){
         usernameField.sendKeys(username);
+        return this;
     }
 
-    public void enterPassword(String password){
-        passwordField.sendKeys(password);
-    }
-
-    public void confirmUsername() {
+    public LandingPage confirmUsername() {
         confirmUsernameButton.click();
+        return this;
     }
 
-    public void confirmPassword(){
+    public LandingPage enterPassword(String password){
+        passwordField.sendKeys(password);
+        return this;
+    }
+
+    public LandingPage confirmPassword(){
         confirmPasswordButton.click();
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -66,6 +71,8 @@ public class LandingPage extends Page{
                             ExpectedConditions.textToBe(By.xpath(profileButtonXpath), "Привет!")
                     )
         );
+
+        return this;
     }
 
 

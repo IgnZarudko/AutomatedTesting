@@ -14,7 +14,8 @@ public abstract class Page {
         this.pageURL = pageURL;
     }
 
-    public void openPage(){
+    public Page openPage(){
         driver.get(pageURL);
+        return this;
     }
 }

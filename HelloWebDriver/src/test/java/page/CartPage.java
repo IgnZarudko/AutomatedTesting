@@ -14,16 +14,10 @@ public class CartPage extends Page {
     @FindBy(xpath = "//span[starts-with(text(),'Артикул')]")
     private WebElement itemVendorCode;
 
-    public void waitUntilVendorCodeIsAvailable(){
-        new WebDriverWait(driver, 10)
-                .until(_driver -> this.getItemVendorCodeLine().split(" ").length == 2);
-    }
-
-    private String getItemVendorCodeLine() {
-        return itemVendorCode.getText();
-    }
-
     public String getItemVendorCode(){
+        new WebDriverWait(driver, 10)
+                .until(_driver -> itemVendorCode.getText().split(" ").length == 2);
+
         return itemVendorCode.getText().split(" ")[1];
     }
 }
