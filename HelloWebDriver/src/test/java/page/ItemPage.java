@@ -1,14 +1,10 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.util.regex.Pattern;
 
 public class ItemPage extends Page{
     @FindBy(xpath = "//button[@ng-if=\"!linkOrButton(page.product.id) && page.product.prices.status == 0\"]")
@@ -31,6 +27,12 @@ public class ItemPage extends Page{
     public void goToCart(){
         goToCartButton.click();
     }
+
+    public void waitUntilVendorCodeIsAvailable(){
+        new WebDriverWait(driver, 10)
+                .until(_driver -> !this.getVendorCode().isEmpty());
+    }
+
 
     public String getVendorCode(){
         return itemVendorCode.getText();
