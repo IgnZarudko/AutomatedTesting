@@ -14,8 +14,5 @@ public abstract class Page {
         this.pageURL = pageURL;
     }
 
-    public Page openPage(){
-        driver.get(pageURL);
-        return this;
-    }
+    public abstract <T extends Page> T openPage();
 }

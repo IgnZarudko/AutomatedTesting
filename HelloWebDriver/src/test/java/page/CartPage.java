@@ -7,12 +7,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CartPage extends Page {
 
+    @FindBy(xpath = "//span[starts-with(text(),'Артикул')]")
+    private WebElement itemVendorCode;
+
     public CartPage(WebDriver driver, String pageURL){
         super(driver, pageURL);
     }
 
-    @FindBy(xpath = "//span[starts-with(text(),'Артикул')]")
-    private WebElement itemVendorCode;
+    @Override
+    @SuppressWarnings("unchecked")
+    public CartPage openPage(){
+        driver.get(pageURL);
+        return this;
+    }
 
     public String getItemVendorCode(){
         new WebDriverWait(driver, 10)

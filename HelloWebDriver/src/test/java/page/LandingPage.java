@@ -36,6 +36,13 @@ public class LandingPage extends Page{
         super(driver, pageURL);
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public LandingPage openPage(){
+        driver.get(pageURL);
+        return this;
+    }
+
     public LandingPage closeAnnoyingAd(){
         closeAnnoyingAdButton.click();
         return this;

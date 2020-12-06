@@ -20,6 +20,13 @@ public class ItemPage extends Page{
         super(driver, pageURL);
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public ItemPage openPage(){
+        driver.get(pageURL);
+        return this;
+    }
+
     public String getVendorCode(){
         new WebDriverWait(driver, 10)
                 .until(_driver -> !this.itemVendorCode.getText().isEmpty());

@@ -64,16 +64,14 @@ public class IStoreTest {
     public void loginPositiveTest() {
         String[][] data = CsvReader.getLoginData();
 
-        LandingPage landingPage = new LandingPage(driver, "https://i-store.by/");
-
-        landingPage.openPage();
-
-        String usernameActual = landingPage.closeAnnoyingAd()
-        .goToLogin()
-        .enterUsername(data[0][0])
-        .confirmUsername()
-        .enterPassword(data[0][1])
-        .confirmPassword().getProfileButtonName();
+        String usernameActual = new LandingPage(driver, "https://i-store.by/")
+                .openPage()
+                .closeAnnoyingAd()
+                .goToLogin()
+                .enterUsername(data[0][0])
+                .confirmUsername()
+                .enterPassword(data[0][1])
+                .confirmPassword().getProfileButtonName();
 
         Assert.assertEquals(usernameActual, "Ignot");
     }
@@ -81,7 +79,6 @@ public class IStoreTest {
     @Test
     public void addToCartTest() {
         ItemPage itemPage = new ItemPage(driver, "https://i-store.by/ipad/ipad-air-109/ipad-air-4-64-gb-wi-fi-seryy-kosmos-myfm2rka");
-        CartPage cartPage = new CartPage(driver, "https://i-store.by/cart");
 
         itemPage.openPage();
 
@@ -90,7 +87,7 @@ public class IStoreTest {
         itemPage.addToCart()
                 .goToCart();
 
-        String vendorCodeActual = cartPage.getItemVendorCode();
+        String vendorCodeActual = new CartPage(driver, "https://i-store.by/cart").getItemVendorCode();
 
         Assert.assertEquals(vendorCodeActual, vendorCodeExpected);
     }
