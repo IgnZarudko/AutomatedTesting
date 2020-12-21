@@ -15,6 +15,10 @@ public class ItemPage extends CommonPage{
     @FindBy(xpath = "//span[@itemprop=\"sku\"]")
     private WebElement itemVendorCode;
 
+    public ItemPage(WebDriver driver){
+        super(driver);
+    }
+
     public ItemPage(WebDriver driver, String pageURL){
         super(driver, pageURL);
     }
@@ -26,7 +30,7 @@ public class ItemPage extends CommonPage{
         return this;
     }
 
-    public String getVendorCode(){
+    public String getItemVendorCode(){
         new WebDriverWait(driver, 10)
                 .until(_driver -> !this.itemVendorCode.getText().isEmpty());
 
@@ -38,9 +42,9 @@ public class ItemPage extends CommonPage{
         return this;
     }
 
-    public ItemPage goToCart(){
+    public CartPage goToCart(){
         goToCartButton.click();
-        return this;
+        return new CartPage(driver);
     }
 
 }

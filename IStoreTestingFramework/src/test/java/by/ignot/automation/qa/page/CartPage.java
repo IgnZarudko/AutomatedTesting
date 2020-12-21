@@ -9,6 +9,10 @@ public class CartPage extends CommonPage{
     @FindBy(xpath = "//span[starts-with(text(),'Артикул')]")
     private WebElement itemVendorCode;
 
+    public CartPage(WebDriver driver){
+        super(driver);
+    }
+
     public CartPage(WebDriver driver, String pageURL){
         super(driver, pageURL);
     }

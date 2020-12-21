@@ -31,6 +31,10 @@ public class LoginPage extends CommonPage{
     @FindBy(xpath = profileButtonXpath)
     private WebElement profileButton;
 
+    public LoginPage(WebDriver driver){
+        super(driver);
+    }
+
     public LoginPage(WebDriver driver, String pageURL){
         super(driver, pageURL);
     }
