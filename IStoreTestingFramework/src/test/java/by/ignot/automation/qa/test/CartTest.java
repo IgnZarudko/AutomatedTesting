@@ -10,7 +10,7 @@ public class CartTest extends CommonSetup{
 
     @Test(dataProvider = "getItemToAddUrls", dataProviderClass = ItemDataProvider.class)
     public void addOneItemToCartTest(String itemUrl) {
-        ItemPage itemPage = new ItemPage(driverProvider.getContextDriver(), itemUrl);
+        ItemPage itemPage = new ItemPage(driver, itemUrl);
 
         String itemVendorCode = itemPage
                 .openPage()
@@ -30,7 +30,7 @@ public class CartTest extends CommonSetup{
         int amountOfItemsExpected = itemUrls.length;
 
         int amountOfItemsActual = UserAction
-                .addItemsAndGoToCart(new ItemPage(driverProvider.getContextDriver()), itemUrls)
+                .addItemsAndGoToCart(new ItemPage(driver), itemUrls)
                 .getItemsAmount();
 
         Assert.assertEquals(amountOfItemsActual, amountOfItemsExpected);
@@ -41,7 +41,7 @@ public class CartTest extends CommonSetup{
         int amountOfItemsExpected = itemUrls.length - 1;
 
         int amountOfItemsActual = UserAction
-                .addItemsAndGoToCart(new ItemPage(driverProvider.getContextDriver()), itemUrls)
+                .addItemsAndGoToCart(new ItemPage(driver), itemUrls)
                 .deleteOneItem()
                 .getItemsAmount();
 

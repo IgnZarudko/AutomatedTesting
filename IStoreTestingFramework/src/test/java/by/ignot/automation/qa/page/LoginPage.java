@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends CommonPage{
@@ -33,7 +32,7 @@ public class LoginPage extends CommonPage{
     private WebElement profileButton;
 
     @FindBy(xpath = "//a[@ng-href=\"account/favorites\"]//div[@class=\"tab-heading-name ng-binding\"]")
-    private WebElement goToFavouritesButton;
+    private WebElement goToFavouriteButton;
 
     public LoginPage(WebDriver driver){
         super(driver, LogProvider.getLog());
@@ -98,10 +97,8 @@ public class LoginPage extends CommonPage{
     }
 
     public FavouritesPage goToFavourites() {
-        new WebDriverWait(driver, WAIT_TIMEOUT)
-                .until(ExpectedConditions.elementToBeClickable(goToFavouritesButton));
+        waitUntilBeClickable(goToFavouriteButton).click();
 
-        goToFavouritesButton.click();
         return new FavouritesPage(driver);
     }
 
@@ -111,8 +108,12 @@ public class LoginPage extends CommonPage{
 
     public String getProfileButtonName() {
         log.info("Getting profile name after login");
+
         new WebDriverWait(driver, WAIT_TIMEOUT)
                 .until(_driver -> !this.profileButton.getText().equals("Привет!"));
+
+        openPage();
+
         return profileButton.getText();
     }
 }

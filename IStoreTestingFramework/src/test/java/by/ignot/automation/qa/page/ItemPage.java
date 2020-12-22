@@ -1,12 +1,10 @@
 package by.ignot.automation.qa.page;
 
 import by.ignot.automation.qa.util.LogProvider;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ItemPage extends CommonPage{
@@ -54,25 +52,23 @@ public class ItemPage extends CommonPage{
 
         new WebDriverWait(driver, 10)
                 .until(_driver -> !this.itemVendorCode.getText().isEmpty());
+
         return itemVendorCode.getText();
     }
 
     public ItemPage addToCart() {
         log.info("Adding item to cart");
+
         addToCartButton.click();
-        new WebDriverWait(driver, WAIT_TIMEOUT)
-                .until(ExpectedConditions.elementToBeClickable(afterAddToCartButton));
+
+        waitUntilBeClickable(afterAddToCartButton);
         return this;
     }
 
     public ItemPage addToFavourites() {
         log.info("Adding item to favourites list");
 
-        new WebDriverWait(driver, WAIT_TIMEOUT)
-                .until(ExpectedConditions.visibilityOf(itemImage));
-
-        new WebDriverWait(driver, WAIT_TIMEOUT)
-                .until(ExpectedConditions.elementToBeClickable(addToFavouritesButton));
+        waitVisibilityOfElement(itemImage);
 
         addToFavouritesButton.click();
 

@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -50,8 +49,7 @@ public class CartPage extends CommonPage{
     public CartPage deleteOneItem() {
         log.info("Deleting one item");
 
-        new WebDriverWait(driver, WAIT_TIMEOUT)
-                .until(ExpectedConditions.elementToBeClickable(deleteItemButtons.get(0)));
+        waitUntilBeClickable(deleteItemButtons.get(0));
 
         deleteItemButtons.get(0).click();
 
@@ -71,9 +69,7 @@ public class CartPage extends CommonPage{
 
     public int getItemsAmount(){
         log.info("Counting items in cart");
-        new WebDriverWait(driver, WAIT_TIMEOUT)
-                .until(ExpectedConditions.visibilityOfAllElements(deleteItemButtons));
-
+        waitVisibilityOfAllElements(deleteItemButtons);
         return deleteItemButtons.size();
     }
 }
