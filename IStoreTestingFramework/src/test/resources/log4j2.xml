@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Appenders>
+
+        <Routing name="Routing">
+            <Routes pattern="$${ctx:ThreadID}">
+                <Route>
+                    <RollingFile name="Thread-${ctx:ThreadID}"
+                                 filePattern="target/logs/output-thread-${ctx:ThreadID}.log">
+                        <PatternLayout>
+                            <pattern>%d{HH:mm:ss} [%t] | %-5level| %logger{36} - %msg%n</pattern>
+                        </PatternLayout>
+                        <Policies>
+                            <SizeBasedTriggeringPolicy size="10 MB" />
+                        </Policies>
+                    </RollingFile>
+                </Route>
+            </Routes>
+        </Routing>
+
+        <Async name="ThreadFiles">
+            <AppenderRef ref="Routing" />
+        </Async>
+
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] | %-5level| %logger{36} - %msg%n"/>
+        </Console>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- Root Logger -->
+        <Root level="info" additivity="false">
+            <AppenderRef ref="ThreadFiles"/>
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+
+</Configuration>

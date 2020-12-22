@@ -1,6 +1,7 @@
 package by.ignot.automation.qa.action;
 
 import by.ignot.automation.qa.page.CartPage;
+import by.ignot.automation.qa.page.FavouritesPage;
 import by.ignot.automation.qa.page.ItemPage;
 import by.ignot.automation.qa.page.LoginPage;
 
@@ -32,5 +33,12 @@ public class UserAction {
         }
 
         return itemPage.goToCart();
+    }
+
+    public static FavouritesPage addItemToFavouritesAndGoToFavourites(LoginPage loginPage, ItemPage itemPage) {
+        loginWithDefaultCredentials(loginPage);
+        return itemPage.openPage()
+                .addToFavourites()
+                .goToFavourites();
     }
 }

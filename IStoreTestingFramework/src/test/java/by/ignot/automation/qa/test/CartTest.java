@@ -2,13 +2,13 @@ package by.ignot.automation.qa.test;
 
 import by.ignot.automation.qa.action.UserAction;
 import by.ignot.automation.qa.page.ItemPage;
-import by.ignot.automation.qa.util.CartDataProvider;
+import by.ignot.automation.qa.util.ItemDataProvider;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CartTest extends CommonSetup{
 
-    @Test(dataProvider = "getItemToAddUrls", dataProviderClass = CartDataProvider.class)
+    @Test(dataProvider = "getItemToAddUrls", dataProviderClass = ItemDataProvider.class)
     public void addOneItemToCartTest(String itemUrl) {
         ItemPage itemPage = new ItemPage(driver, itemUrl);
 
@@ -25,7 +25,7 @@ public class CartTest extends CommonSetup{
     }
 
 
-    @Test(dataProvider = "getSeveralItemToAddUrls", dataProviderClass = CartDataProvider.class)
+    @Test(dataProvider = "getSeveralItemToAddUrls", dataProviderClass = ItemDataProvider.class)
     public void addSeveralItemsToCartTest(String[] itemUrls) {
         int amountOfItemsExpected = itemUrls.length;
 
@@ -36,7 +36,7 @@ public class CartTest extends CommonSetup{
         Assert.assertEquals(amountOfItemsActual, amountOfItemsExpected);
     }
 
-    @Test(dataProvider = "getSeveralItemToAddUrls", dataProviderClass = CartDataProvider.class)
+    @Test(dataProvider = "getSeveralItemToAddUrls", dataProviderClass = ItemDataProvider.class)
     public void deleteItemFromCartTest(String[] itemUrls) {
         int amountOfItemsExpected = itemUrls.length - 1;
 

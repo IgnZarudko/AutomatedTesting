@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CartDataProvider {
+public class ItemDataProvider {
 
     private static final String ITEM_URLS_PATH = "src/test/resources/cart/itemsToAddUrls.csv";
     private static final String SEVERAL_ITEM_URLS_PATH = "src/test/resources/cart/severalItemsToAddUrls.csv";

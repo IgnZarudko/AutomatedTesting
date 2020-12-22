@@ -1,23 +1,21 @@
 package by.ignot.automation.qa.page;
 
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
 public abstract class CommonPage {
     protected WebDriver driver;
-
     protected String pageURL = "https://i-store.by/";
-
     protected final int WAIT_TIMEOUT = 15;
+    protected final Logger log;
 
-    public CommonPage(WebDriver driver){
-        PageFactory.initElements(driver, this);
+    public CommonPage(WebDriver driver, Logger log){
         this.driver = driver;
+        this.log = log;
     }
 
-    public CommonPage(WebDriver driver, String pageURL){
-        PageFactory.initElements(driver, this);
-        this.driver = driver;
+    public CommonPage(WebDriver driver, Logger log, String pageURL){
+        this(driver, log);
         this.pageURL = pageURL;
     }
 

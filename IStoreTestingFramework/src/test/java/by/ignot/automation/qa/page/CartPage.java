@@ -1,10 +1,11 @@
 package by.ignot.automation.qa.page;
 
-import org.openqa.selenium.By;
+import by.ignot.automation.qa.util.LogProvider;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -29,21 +30,26 @@ public class CartPage extends CommonPage{
 
 
     public CartPage(WebDriver driver){
-        super(driver);
+        super(driver, LogProvider.getLog());
+        PageFactory.initElements(driver, this);
     }
 
     public CartPage(WebDriver driver, String pageURL){
-        super(driver, pageURL);
+        super(driver, LogProvider.getLog(), pageURL);
+        PageFactory.initElements(driver, this);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public CartPage openPage(){
+        log.info("Opening cart page");
         driver.get(this.pageUrl);
         return this;
     }
 
     public CartPage deleteOneItem() {
+        log.info("Deleting one item");
+
         new WebDriverWait(driver, WAIT_TIMEOUT)
                 .until(ExpectedConditions.elementToBeClickable(deleteItemButtons.get(0)));
 
@@ -55,6 +61,8 @@ public class CartPage extends CommonPage{
     }
 
     public String getItemVendorCode(){
+        log.info("Getting first's item vendor code");
+
         new WebDriverWait(driver, WAIT_TIMEOUT)
                 .until(_driver -> itemVendorCode.getText().split(" ").length == 2);
 
@@ -62,6 +70,7 @@ public class CartPage extends CommonPage{
     }
 
     public int getItemsAmount(){
+        log.info("Counting items in cart");
         new WebDriverWait(driver, WAIT_TIMEOUT)
                 .until(ExpectedConditions.visibilityOfAllElements(deleteItemButtons));
 
