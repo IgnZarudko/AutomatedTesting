@@ -1,5 +1,7 @@
 package by.ignot.automation.qa.action;
 
+import by.ignot.automation.qa.page.CartPage;
+import by.ignot.automation.qa.page.ItemPage;
 import by.ignot.automation.qa.page.LoginPage;
 
 public class UserAction {
@@ -20,5 +22,15 @@ public class UserAction {
                 .confirmUsername()
                 .enterPassword(userPassword)
                 .confirmPassword();
+    }
+
+    public static CartPage addItemsAndGoToCart(ItemPage itemPage, String[] urlsToAdd) {
+        for (String url: urlsToAdd) {
+            itemPage.setPageURL(url);
+            itemPage.openPage()
+                    .addToCart();
+        }
+
+        return itemPage.goToCart();
     }
 }

@@ -8,6 +8,11 @@
                     <include name="loginPositiveTest"/>
                 </methods>
             </class>
+            <class name="by.ignot.automation.qa.test.CartTest">
+                <methods>
+                    <include name="addToCartTest"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

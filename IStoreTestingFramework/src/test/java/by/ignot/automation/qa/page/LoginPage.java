@@ -1,10 +1,8 @@
 package by.ignot.automation.qa.page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends CommonPage{
@@ -77,12 +75,6 @@ public class LoginPage extends CommonPage{
 
     public LoginPage confirmPassword() {
         confirmPasswordButton.click();
-
-        new WebDriverWait(driver, WAIT_TIMEOUT).until(
-                ExpectedConditions.not(
-                        ExpectedConditions.textToBe(By.xpath(profileButtonXpath), "Привет!")
-                )
-        );
         return this;
     }
 
@@ -91,6 +83,8 @@ public class LoginPage extends CommonPage{
     }
 
     public String getProfileButtonName(){
+        new WebDriverWait(driver, WAIT_TIMEOUT)
+                .until(_driver -> !this.profileButton.getText().equals("Привет!"));
         return profileButton.getText();
     }
 }

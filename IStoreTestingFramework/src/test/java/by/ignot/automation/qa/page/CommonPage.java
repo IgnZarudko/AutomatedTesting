@@ -8,7 +8,7 @@ public abstract class CommonPage {
 
     protected String pageURL = "https://i-store.by/";
 
-    protected final int WAIT_TIMEOUT = 10;
+    protected final int WAIT_TIMEOUT = 15;
 
     public CommonPage(WebDriver driver){
         PageFactory.initElements(driver, this);
@@ -21,7 +21,9 @@ public abstract class CommonPage {
         this.pageURL = pageURL;
     }
 
+    public void setPageURL(String pageURL) {
+        this.pageURL = pageURL;
+    }
+
     public abstract <T extends CommonPage> T openPage();
-
-
 }
