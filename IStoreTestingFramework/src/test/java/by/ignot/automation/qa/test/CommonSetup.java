@@ -1,21 +1,28 @@
 package by.ignot.automation.qa.test;
 
-import by.ignot.automation.qa.driver.DriverSingleton;
-import org.openqa.selenium.WebDriver;
+import by.ignot.automation.qa.driver.DriverProvider;
+import by.ignot.automation.qa.util.LogProvider;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 
 public class CommonSetup {
-    WebDriver driver;
+    // providing different drivers for different threads
+    public static DriverProvider driverProvider;
 
-    @BeforeMethod
-    public void setUpEnvironment() {
-        driver = DriverSingleton.getDriver();
+    public CommonSetup() {
+        driverProvider = new DriverProvider();
     }
 
-    @AfterMethod
-    public void quitWebDriver(){
-        DriverSingleton.closeDriver();
+    @BeforeMethod(alwaysRun = true)
+    public void browserDriverSetup() {
+        LogProvider.getLog().info("Initializing browser");
+        driverProvider.updateContextDriver();
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void browserDriverShutDown(){
+        LogProvider.getLog().info("Shutting down browser");
+        driverProvider.shutContextDriver();
     }
 }
