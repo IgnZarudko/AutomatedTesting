@@ -10,7 +10,7 @@
             </class>
             <class name="by.ignot.automation.qa.test.CartTest">
                 <methods>
-                    <include name="addToCartTest"/>
+                    <include name="addOneItemToCartTest"/>
                 </methods>
             </class>
             <class name="by.ignot.automation.qa.test.FavouritesTest">
