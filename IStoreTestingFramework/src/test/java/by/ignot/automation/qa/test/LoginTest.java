@@ -8,12 +8,10 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends CommonSetup{
 
-    private static final String LOGIN_PAGE_URL = "https://i-store.by/";
-
     @Test(dataProvider = "getCorrectLoginCredentials", dataProviderClass = LoginDataProvider.class)
     public void loginPositiveTest(String userLogin, String userPassword, String expectedUsername) {
         String usernameActual = UserAction
-                .loginWithGivenCredentials(new LoginPage(driver, LOGIN_PAGE_URL), userLogin, userPassword)
+                .loginWithGivenCredentials(new LoginPage(driver), userLogin, userPassword)
                 .getProfileButtonName();
 
         Assert.assertEquals(usernameActual, expectedUsername);
@@ -21,7 +19,7 @@ public class LoginTest extends CommonSetup{
 
     @Test(dataProvider = "getIncorrectUsernameCredentials", dataProviderClass = LoginDataProvider.class)
     public void invalidUsernameTest(String userLogin){
-        LoginPage loginPage = new LoginPage(driver, LOGIN_PAGE_URL);
+        LoginPage loginPage = new LoginPage(driver);
 
         String usernameFieldClassBeforeInput = loginPage
                 .openPage()
@@ -39,7 +37,7 @@ public class LoginTest extends CommonSetup{
 
     @Test(dataProvider = "getIncorrectPasswordCredentials", dataProviderClass = LoginDataProvider.class)
     public void invalidPasswordTest(String userLogin, String userPassword) {
-        LoginPage loginPage = new LoginPage(driver, LOGIN_PAGE_URL);
+        LoginPage loginPage = new LoginPage(driver);
 
         String passwordFieldClassBeforeInput = loginPage
                 .openPage()
