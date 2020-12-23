@@ -1,5 +1,6 @@
 package by.ignot.automation.qa.driver;
 
+import by.ignot.automation.qa.util.LogProvider;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,6 +20,7 @@ public class DriverSingleton {
         if (driver == null) {
             switch(System.getProperty("browser")) {
                 case "opera":{
+                    LogProvider.getLog().info("setting up operadriver");
                     WebDriverManager.operadriver().setup();
                     OperaOptions operaOptions = new OperaOptions();
                     operaOptions.addArguments("--headless");
@@ -28,6 +30,7 @@ public class DriverSingleton {
                     break;
                 }
                 default: {
+                    LogProvider.getLog().info("setting up chromedriver");
                     WebDriverManager.chromedriver().setup();
                     ChromeOptions chromeOptions = new ChromeOptions();
                     chromeOptions.addArguments("--headless");
@@ -36,6 +39,7 @@ public class DriverSingleton {
                     driver = new ChromeDriver(chromeOptions);
                 }
             }
+            LogProvider.getLog().info("making common preparations");
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         }
