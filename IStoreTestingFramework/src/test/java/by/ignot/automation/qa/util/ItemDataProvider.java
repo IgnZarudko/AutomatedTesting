@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 
 public class ItemDataProvider {
 
-    private static final String ITEM_URLS_PATH = "src/test/resources/item/itemsToAddUrls.csv";
-    private static final String SEVERAL_ITEM_URLS_PATH = "src/test/resources/item/severalItemsToAddUrls.csv";
+    private static final String ITEM_URLS_PATH = "src/test/resources/cart/itemsToAddUrls.csv";
+    private static final String SEVERAL_ITEM_URLS_PATH = "src/test/resources/cart/severalItemsToAddUrls.csv";
 
 
     @DataProvider()
