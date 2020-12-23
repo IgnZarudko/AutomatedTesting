@@ -67,12 +67,6 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M1</version>
-                    <configuration>
-                        <suiteXmlFiles>
-                            <!-- TestNG suite XML files -->
-                            <suiteXmlFile>src/test/resources/testng-smoke.xml</suiteXmlFile>
-                        </suiteXmlFiles>
-                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
