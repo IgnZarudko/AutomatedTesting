@@ -53,6 +53,7 @@ public class LoginPage extends CommonPage{
     }
 
     public LoginPage closeAnnoyingAd(){
+        waitUntilBeClickable(closeAnnoyingAdButton);
         closeAnnoyingAdButton.click();
         return this;
     }

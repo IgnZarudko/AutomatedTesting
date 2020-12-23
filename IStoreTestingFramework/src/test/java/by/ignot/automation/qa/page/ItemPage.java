@@ -83,6 +83,7 @@ public class ItemPage extends CommonPage{
 
     public CartPage goToCart() {
         log.info("Going to cart");
+        waitUntilBeClickable(goToCartButton);
         goToCartButton.click();
         return new CartPage(driver);
     }
