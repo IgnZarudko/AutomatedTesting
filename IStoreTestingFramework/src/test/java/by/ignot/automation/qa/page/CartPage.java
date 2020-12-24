@@ -62,12 +62,11 @@ public class CartPage extends CommonPage{
     public String getItemVendorCode(){
         log.info("Getting first's item vendor code");
 
-        waitPresenceOfElement(itemVendorCode);
 
         new WebDriverWait(driver, WAIT_TIMEOUT)
-                .until(driver -> driver.findElement(itemVendorCode).getText().split(" ").length == 2);
+                .until(driver -> !waitPresenceOfElement(itemVendorCode).getText().split(" ")[1].isEmpty());
 
-        return  driver.findElement(itemVendorCode).getText().split(" ")[1];
+        return driver.findElement(itemVendorCode).getText().split(" ")[1];
     }
 
     public int getItemsAmount(){
