@@ -54,9 +54,11 @@ public class ItemPage extends CommonPage{
 
         String itemTitleWithCode = waitPresenceOfElement(itemTitle).getText();
 
+        log.info("title " + itemTitleWithCode);
+
         String code = itemTitleWithCode.substring(itemTitleWithCode.lastIndexOf('(') + 1, itemTitleWithCode.lastIndexOf(")"));
 
-        log.info("got " + code);
+        log.info("code " + code);
 
         return code;
     }
