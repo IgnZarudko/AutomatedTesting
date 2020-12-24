@@ -21,8 +21,7 @@ public class CartTest extends CommonSetup{
                 .goToCart()
                 .getItemVendorCode();
 
-
-        Assert.assertTrue(addedVendorCode.contains(itemVendorCode));
+        Assert.assertEquals(itemVendorCode, addedVendorCode);
     }
 
 
