@@ -24,8 +24,8 @@ public class ItemPage extends CommonPage{
     @FindBy(xpath = "//button[@ng-class=\"{'active': isProductFavorite(page.product.id)}\"]")
     private WebElement addToFavouritesButton;
 
-    private final String itemTitleXpath = "//div[@class=\"pull-left text-head ng-binding ng-scope\"]";
-
+//    private final String itemTitleXpath = "//div[@class=\"pull-left text-head ng-binding ng-scope\"]";
+    private final String itemTitleXpath = "//span[@itemprop=\"sku\"]";
     private By itemTitle = By.xpath(itemTitleXpath);
 
     @FindBy(xpath = "//a[@class=\"icon favorite active ng-scope\"]")
@@ -52,15 +52,14 @@ public class ItemPage extends CommonPage{
     public String getItemVendorCode() {
         log.info("Getting item vendor code");
 
-        String itemTitleWithCode = waitVisibilityOfElement(waitPresenceOfElement(itemTitle)).getText();
+        new WebDriverWait(driver, WAIT_TIMEOUT)
+                .until(_driver -> !waitPresenceOfElement(itemTitle).getText().isEmpty());
 
-        log.info("title " + itemTitleWithCode);
+        String vendorCode = waitPresenceOfElement(itemTitle).getText();
 
-        String code = itemTitleWithCode.substring(itemTitleWithCode.lastIndexOf('(') + 1, itemTitleWithCode.lastIndexOf(")"));
+        log.info("code " + vendorCode);
 
-        log.info("code " + code);
-
-        return code;
+        return vendorCode;
     }
 
     public ItemPage addToCart() {
