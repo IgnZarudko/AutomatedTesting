@@ -12,11 +12,11 @@ public class FavouritesTest extends CommonSetup {
 
     @Test(dataProvider = "getItemToAddUrls", dataProviderClass = ItemDataProvider.class)
     public void addToFavouritesRequiresLoginTest(String itemUrl) {
-        new ItemPage(driverProvider.getContextDriver(), itemUrl)
+        new ItemPage(driverProvider.getThreadedDriver(), itemUrl)
                 .openPage()
                 .addToFavourites();
 
-        boolean isLoginRequired = new LoginPage(driverProvider.getContextDriver()).isLoginPageOpened();
+        boolean isLoginRequired = new LoginPage(driverProvider.getThreadedDriver()).isLoginPageOpened();
 
         Assert.assertTrue(isLoginRequired);
     }
@@ -24,17 +24,17 @@ public class FavouritesTest extends CommonSetup {
     @Test(dataProvider = "getItemToAddUrls", dataProviderClass = ItemDataProvider.class)
     public void addToFavouritesTest(String itemUrl) {
         int favouriteItemsAmountBefore = UserAction
-                .loginWithDefaultCredentials(new LoginPage(driverProvider.getContextDriver()))
+                .loginWithDefaultCredentials(new LoginPage(driverProvider.getThreadedDriver()))
                 .goToFavourites()
                 .getFavouriteItemsAmount();
 
-        int favouriteItemsAmountAfter = new ItemPage(driverProvider.getContextDriver(), itemUrl)
+        int favouriteItemsAmountAfter = new ItemPage(driverProvider.getThreadedDriver(), itemUrl)
                 .openPage()
                 .addToFavourites()
                 .goToFavourites()
                 .getFavouriteItemsAmount();
 
-        new FavouritesPage(driverProvider.getContextDriver())
+        new FavouritesPage(driverProvider.getThreadedDriver())
                 .openPage()
                 .deleteOneItem();
 
@@ -44,10 +44,10 @@ public class FavouritesTest extends CommonSetup {
     @Test(dataProvider = "getItemToAddUrls", dataProviderClass = ItemDataProvider.class)
     public void deleteFromFavouritesTest(String itemUrl) {
 
-        UserAction.loginWithDefaultCredentials(new LoginPage(driverProvider.getContextDriver()))
+        UserAction.loginWithDefaultCredentials(new LoginPage(driverProvider.getThreadedDriver()))
                 .goToFavourites();
 
-        FavouritesPage favouritesPage = new ItemPage(driverProvider.getContextDriver(), itemUrl)
+        FavouritesPage favouritesPage = new ItemPage(driverProvider.getThreadedDriver(), itemUrl)
                 .openPage()
                 .addToFavourites()
                 .goToFavourites();

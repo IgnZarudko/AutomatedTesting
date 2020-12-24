@@ -11,7 +11,7 @@ public class LoginTest extends CommonSetup{
     @Test(dataProvider = "getCorrectLoginCredentials", dataProviderClass = LoginDataProvider.class)
     public void loginPositiveTest(String userLogin, String userPassword, String expectedUsername) {
         String usernameActual = UserAction
-                .loginWithGivenCredentials(new LoginPage(driverProvider.getContextDriver()), userLogin, userPassword)
+                .loginWithGivenCredentials(new LoginPage(driverProvider.getThreadedDriver()), userLogin, userPassword)
                 .getProfileButtonName();
 
         Assert.assertEquals(usernameActual, expectedUsername);
@@ -19,7 +19,7 @@ public class LoginTest extends CommonSetup{
 
     @Test(dataProvider = "getIncorrectUsernameCredentials", dataProviderClass = LoginDataProvider.class)
     public void invalidUsernameTest(String userLogin){
-        LoginPage loginPage = new LoginPage(driverProvider.getContextDriver());
+        LoginPage loginPage = new LoginPage(driverProvider.getThreadedDriver());
 
         String usernameFieldClassBeforeInput = loginPage
                 .openPage()
@@ -37,7 +37,7 @@ public class LoginTest extends CommonSetup{
 
     @Test(dataProvider = "getIncorrectPasswordCredentials", dataProviderClass = LoginDataProvider.class)
     public void invalidPasswordTest(String userLogin, String userPassword) {
-        LoginPage loginPage = new LoginPage(driverProvider.getContextDriver());
+        LoginPage loginPage = new LoginPage(driverProvider.getThreadedDriver());
 
         String passwordFieldClassBeforeInput = loginPage
                 .openPage()

@@ -11,24 +11,23 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class DriverProvider {
-    // stores thread id and driver for each test context
     private final HashMap<Long, WebDriver> drivers;
 
     public DriverProvider() {
         drivers = new HashMap<>();
     }
 
-    public void updateContextDriver() {
+    public void updateThreadedDriver() {
         long threadId = Thread.currentThread().getId();
         drivers.put(threadId, DriverProvider.getNewDriver());
     }
 
-    public WebDriver getContextDriver() {
+    public WebDriver getThreadedDriver() {
         long threadId = Thread.currentThread().getId();
         return drivers.get(threadId);
     }
 
-    public void shutContextDriver() {
+    public void shutThreadedDriver() {
         long threadId = Thread.currentThread().getId();
         WebDriver currentDriver = drivers.get(threadId);
         if (currentDriver != null) {

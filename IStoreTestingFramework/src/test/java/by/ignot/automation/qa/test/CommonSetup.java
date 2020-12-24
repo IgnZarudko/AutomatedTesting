@@ -14,11 +14,11 @@ public class CommonSetup {
 
     @BeforeMethod(alwaysRun = true)
     public void prepareAll() {
-        driverProvider.updateContextDriver();
+        driverProvider.updateThreadedDriver();
     }
 
     @AfterMethod(alwaysRun = true)
     public void closeAll() {
-        driverProvider.shutContextDriver();
+        driverProvider.shutThreadedDriver();
     }
 }
