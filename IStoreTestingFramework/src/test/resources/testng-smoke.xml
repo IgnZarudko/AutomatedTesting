@@ -3,21 +3,21 @@
 <suite name="WebAutomation">
     <test name="IStoreTest">
         <classes>
-<!--            <class name="by.ignot.automation.qa.test.LoginTest">-->
-<!--                <methods>-->
-<!--                    <include name="loginPositiveTest"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <class name="by.ignot.automation.qa.test.LoginTest">
+                <methods>
+                    <include name="loginPositiveTest"/>
+                </methods>
+            </class>
             <class name="by.ignot.automation.qa.test.CartTest">
                 <methods>
                     <include name="addOneItemToCartTest"/>
                 </methods>
             </class>
-<!--            <class name="by.ignot.automation.qa.test.FavouritesTest">-->
-<!--                <methods>-->
-<!--                    <include name="addToFavouritesRequiresLoginTest"/>-->
-<!--                </methods>-->
-<!--            </class>-->
+            <class name="by.ignot.automation.qa.test.FavouritesTest">
+                <methods>
+                    <include name="addToFavouritesRequiresLoginTest"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
