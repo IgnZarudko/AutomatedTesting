@@ -1,21 +1,21 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="WebAutomationSmoke" parallel="methods" thread-count="12">
+<suite name="WebAutomationAll" parallel="methods" thread-count="12">
     <test name="IStoreTest">
         <classes>
             <class name="by.ignot.automation.qa.test.LoginTest">
                 <methods>
-                    <include name="loginPositiveTest"/>
+                    <exclude name="loginPositiveTest"/>
                 </methods>
             </class>
             <class name="by.ignot.automation.qa.test.CartTest">
                 <methods>
-                    <include name="addOneItemToCartTest"/>
+                    <exclude name="addOneItemToCartTest"/>
                 </methods>
             </class>
             <class name="by.ignot.automation.qa.test.FavouritesTest">
                 <methods>
-                    <include name="addToFavouritesRequiresLoginTest"/>
+                    <exclude name="addToFavouritesRequiresLoginTest"/>
                 </methods>
             </class>
         </classes>
