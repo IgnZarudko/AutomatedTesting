@@ -50,10 +50,9 @@ public class ItemPage extends CommonPage{
     }
 
     public String getItemVendorCode() {
-        openPage();
         log.info("Getting item vendor code");
 
-        String itemTitleWithCode = waitPresenceOfElement(itemTitle).getText();
+        String itemTitleWithCode = waitVisibilityOfElement(waitPresenceOfElement(itemTitle)).getText();
 
         log.info("title " + itemTitleWithCode);
 
