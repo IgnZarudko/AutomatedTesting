@@ -1,6 +1,7 @@
 package by.ignot.automation.qa.page;
 
 import by.ignot.automation.qa.util.LogProvider;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -14,8 +15,8 @@ public class CartPage extends CommonPage{
 
     protected String pageUrl = "https://i-store.by/cart";
 
-    @FindBy(xpath = "//span[@ng-bind-html=\"translations.productSku + ' ' + x.sku | trusted\"]")
-    private WebElement itemVendorCode;
+    String itemVendorCodeXPath = "//span[@ng-bind-html=\"translations.productSku + ' ' + x.sku | trusted\"]";
+    private By itemVendorCode = By.xpath(itemVendorCodeXPath);
 
     @FindAll({
             @FindBy(xpath = "//button[@class=\"pull-right button-delete visible-lg\"]")
@@ -61,12 +62,12 @@ public class CartPage extends CommonPage{
     public String getItemVendorCode(){
         log.info("Getting first's item vendor code");
 
-        waitVisibilityOfElement(itemVendorCode);
+        waitPresenceOfElement(itemVendorCode);
 
         new WebDriverWait(driver, WAIT_TIMEOUT)
-                .until(_driver -> itemVendorCode.getText().split(" ").length == 2);
+                .until(driver -> driver.findElement(itemVendorCode).getText().split(" ").length == 2);
 
-        return itemVendorCode.getText().split(" ")[1];
+        return  driver.findElement(itemVendorCode).getText().split(" ")[1];
     }
 
     public int getItemsAmount(){
