@@ -64,7 +64,7 @@ public class CartPage extends CommonPage{
 
         WebElement vendorCode = waitVisibilityOfElement(waitPresenceOfElement(itemVendorCode));
 
-        new WebDriverWait(driver, WAIT_TIMEOUT + 10)
+        new WebDriverWait(driver, WAIT_TIMEOUT + 30)
                 .until(driver -> !vendorCode.getText().split(" ")[1].isEmpty());
 
         return vendorCode.getText().split(" ")[1];
