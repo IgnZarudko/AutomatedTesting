@@ -67,6 +67,7 @@ public class CartPage extends CommonPage{
         new WebDriverWait(driver, WAIT_TIMEOUT)
                 .until(driver -> !vendorCode.getText().split(" ")[1].isEmpty());
 
+        openPage();
         return driver.findElement(itemVendorCode).getText().split(" ")[1];
     }
 
