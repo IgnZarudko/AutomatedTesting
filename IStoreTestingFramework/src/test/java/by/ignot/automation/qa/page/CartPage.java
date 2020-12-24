@@ -15,7 +15,7 @@ public class CartPage extends CommonPage{
 
     protected String pageUrl = "https://i-store.by/cart";
 
-    String itemVendorCodeXPath = "//span[@ng-bind-html=\"translations.productSku + ' ' + x.sku | trusted\"]";
+    private String itemVendorCodeXPath = "//span[@ng-bind-html=\"translations.productSku + ' ' + x.sku | trusted\"]";
     private By itemVendorCode = By.xpath(itemVendorCodeXPath);
 
     @FindAll({

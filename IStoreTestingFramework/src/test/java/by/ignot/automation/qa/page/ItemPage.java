@@ -1,6 +1,7 @@
 package by.ignot.automation.qa.page;
 
 import by.ignot.automation.qa.util.LogProvider;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,8 +24,8 @@ public class ItemPage extends CommonPage{
     @FindBy(xpath = "//button[@ng-class=\"{'active': isProductFavorite(page.product.id)}\"]")
     private WebElement addToFavouritesButton;
 
-    @FindBy(xpath = "//span[@itemprop=\"sku\"]")
-    private WebElement itemVendorCode;
+    private String itemVendorCodeXPath = "//span[@itemprop=\"sku\"]";
+    private By itemVendorCode = By.xpath(itemVendorCodeXPath);
 
     @FindBy(xpath = "//a[@class=\"icon favorite active ng-scope\"]")
     private WebElement goToFavouritesButton;
@@ -50,10 +51,12 @@ public class ItemPage extends CommonPage{
     public String getItemVendorCode() {
         log.info("Getting item's vendor code");
 
-        new WebDriverWait(driver, 10)
-                .until(_driver -> !this.itemVendorCode.getText().isEmpty());
+        waitPresenceOfElement(itemVendorCode);
 
-        return itemVendorCode.getText();
+        new WebDriverWait(driver, 10)
+                .until(driver -> driver.findElement(itemVendorCode).getText().isEmpty());
+
+        return driver.findElement(itemVendorCode).getText();
     }
 
     public ItemPage addToCart() {
