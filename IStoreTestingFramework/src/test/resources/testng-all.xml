@@ -5,17 +5,20 @@
         <classes>
             <class name="by.ignot.automation.qa.test.LoginTest">
                 <methods>
-                    <exclude name="loginPositiveTest"/>
+                    <include name="invalidUsernameTest"/>
+                    <include name="invalidPasswordTest"/>
                 </methods>
             </class>
             <class name="by.ignot.automation.qa.test.CartTest">
                 <methods>
-                    <exclude name="addOneItemToCartTest"/>
+                    <include name="addSeveralItemsToCartTest"/>
+                    <include name="deleteItemFromCartTest"/>
                 </methods>
             </class>
             <class name="by.ignot.automation.qa.test.FavouritesTest">
                 <methods>
-                    <exclude name="addToFavouritesRequiresLoginTest"/>
+                    <include name="addToFavouritesTest"/>
+                    <include name="deleteFromFavouritesTest"/>
                 </methods>
             </class>
         </classes>
