@@ -15,8 +15,8 @@ public class CartPage extends CommonPage{
 
     protected String pageUrl = "https://i-store.by/cart";
 
-    private String itemTitleXPath = "//div[@class=\"wrapper\"]//div[@class=\"header ng-binding\"][@ng-bind=\"x.name\"]";
-    private By itemTitle = By.xpath(itemTitleXPath);
+    private String itemVendorCodeXPath = "//span[@ng-bind-html=\"translations.productSku + ' ' + x.sku | trusted\"]";
+    private By itemVendorCode = By.xpath(itemVendorCodeXPath);
 
     @FindAll({
             @FindBy(xpath = "//button[@class=\"pull-right button-delete visible-lg\"]")
@@ -59,11 +59,22 @@ public class CartPage extends CommonPage{
         return this;
     }
 
-    public String getItemTitle(){
-        log.info("Getting first's item title");
+    public String getItemVendorCode(){
+        log.info("Getting first's item vendor code");
 
-        return waitPresenceOfElement(itemTitle).getText();
+        WebElement vendorCode = waitVisibilityOfElement(waitPresenceOfElement(itemVendorCode));
+
+        new WebDriverWait(driver, WAIT_TIMEOUT + 10)
+                .until(driver -> !vendorCode.getText().split(" ")[1].isEmpty());
+
+        String code = vendorCode.getText().split(" ")[1];
+
+        log.info("got " + code);
+
+        return code;
     }
+
+
 
     public int getItemsAmount(){
         log.info("Counting items in cart");

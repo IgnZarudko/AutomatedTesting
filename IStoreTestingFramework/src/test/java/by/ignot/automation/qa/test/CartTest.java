@@ -14,14 +14,15 @@ public class CartTest extends CommonSetup{
 
         String itemVendorCode = itemPage
                 .openPage()
-                .getItemTitle();
+                .getItemVendorCode();
 
         String addedVendorCode = itemPage
                 .addToCart()
                 .goToCart()
-                .getItemTitle();
+                .getItemVendorCode();
 
-        Assert.assertEquals(itemVendorCode, addedVendorCode);
+
+        Assert.assertTrue(addedVendorCode.contains(itemVendorCode));
     }
 
 

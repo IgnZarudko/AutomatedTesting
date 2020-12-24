@@ -49,12 +49,16 @@ public class ItemPage extends CommonPage{
         return this;
     }
 
-    public String getItemTitle() {
-        log.info("Getting item title");
+    public String getItemVendorCode() {
+        log.info("Getting item vendor code");
 
         String itemTitleWithCode = waitPresenceOfElement(itemTitle).getText();
 
-        return itemTitleWithCode.substring(0, itemTitleWithCode.lastIndexOf(","));
+        String code = itemTitleWithCode.substring(itemTitleWithCode.lastIndexOf('(') + 1, itemTitleWithCode.lastIndexOf(")"));
+
+        log.info("got " + code);
+
+        return code;
     }
 
     public ItemPage addToCart() {
